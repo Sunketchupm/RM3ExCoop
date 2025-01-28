@@ -59,7 +59,7 @@ namespace RM2ExCoop.RM2C
                 // Useless
                 0x00 => true,
                 0xC0 => true,
-                _ => false
+                _ => true
             };
         }
 
@@ -114,7 +114,7 @@ namespace RM2ExCoop.RM2C
                 // Useless
                 0x00 => new G_SNoOp(code, "gsDPNoOp"),
                 0xC0 => new G_SNoOp(code, "gsDPNoOp"),
-                _ => throw new NotImplementedException("Unhandled F3D command: " + code)
+                _ => new G_SNoOp(code, "gsDPNoOp"),
             };
 
             BitStream bin = new(bytes);
