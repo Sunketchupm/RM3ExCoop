@@ -341,8 +341,9 @@ namespace RM2ExCoop.RM2C
 
             // For editor levels, do not use on actors or RM unless explicitly told flagged
             // depends on all data being in the same display list.
-            if (optimize)
-                modelData = OptimizeModelData(modelData);
+            //if (optimize)
+                //modelData = OptimizeModelData(modelData);
+            // sometimes breaks, so we disable
 
             List<List<int>> trackers = new() { new(), new(), new(), new() };
             List<(uint, uint, uint)> verts = new();

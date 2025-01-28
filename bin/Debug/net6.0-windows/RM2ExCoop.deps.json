@@ -1,0 +1,97 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "RM2ExCoop/1.0.0": {
+        "dependencies": {
+          "Magick.NET-Q8-x64": "12.2.0",
+          "geometry3Sharp": "1.0.324"
+        },
+        "runtime": {
+          "RM2ExCoop.dll": {}
+        }
+      },
+      "geometry3Sharp/1.0.324": {
+        "runtime": {
+          "lib/netstandard2.0/geometry3Sharp.dll": {
+            "assemblyVersion": "1.0.324.0",
+            "fileVersion": "1.0.324.0"
+          }
+        }
+      },
+      "Magick.NET-Q8-x64/12.2.0": {
+        "dependencies": {
+          "Magick.NET.Core": "12.2.0"
+        },
+        "runtime": {
+          "lib/netstandard21/Magick.NET-Q8-x64.dll": {
+            "assemblyVersion": "12.2.0.0",
+            "fileVersion": "12.2.0.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux-musl-x64/native/Magick.Native-Q8-x64.dll.so": {
+            "rid": "linux-musl-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/Magick.Native-Q8-x64.dll.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/Magick.Native-Q8-x64.dll.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/Magick.Native-Q8-x64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "7.1.0.50"
+          }
+        }
+      },
+      "Magick.NET.Core/12.2.0": {
+        "runtime": {
+          "lib/netstandard21/Magick.NET.Core.dll": {
+            "assemblyVersion": "12.2.0.0",
+            "fileVersion": "12.2.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RM2ExCoop/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "geometry3Sharp/1.0.324": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vdEC1zaX6lV8LI9BvqizplraEJ6zFE98rMM+hDZqVPXMtwDIIY/RpTQQtxe043E9gsSdx0Xyz1TbSqIYQnBPaw==",
+      "path": "geometry3sharp/1.0.324",
+      "hashPath": "geometry3sharp.1.0.324.nupkg.sha512"
+    },
+    "Magick.NET-Q8-x64/12.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5uvLOiztuQArq6MSDJGt+/XSBZZj8QIw26F372+T80r9fZ2/AFHG5/6/7lywYx/WFVobile4n8Yve3yoSt0ryg==",
+      "path": "magick.net-q8-x64/12.2.0",
+      "hashPath": "magick.net-q8-x64.12.2.0.nupkg.sha512"
+    },
+    "Magick.NET.Core/12.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h9MrLtdyEUHCK9wYKgCK0sqzqHV9LHW0JCTneKVBVZM5JcvyOpkQVRxEsr3a5V5D1g3oQa1nJOPbIvJUaZZzgA==",
+      "path": "magick.net.core/12.2.0",
+      "hashPath": "magick.net.core.12.2.0.nupkg.sha512"
+    }
+  }
+}

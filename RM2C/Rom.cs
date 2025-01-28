@@ -488,6 +488,7 @@ namespace RM2ExCoop.RM2C
                     {
                         // Write Geo
                         geoObj.Write(Path.Join(areaDir, "custom.geo.inc.c"));
+                        WriteLevelScript(Path.Join(levelDir, "custom.script.c"), level, script, envfx);
                         foreach (var g in geoObj.G)
                             script.MakeDec($"const GeoLayout Geo_{idPrefix}{Utils.Hex(g.Item2)}[]");
 

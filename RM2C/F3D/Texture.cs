@@ -27,7 +27,7 @@ namespace RM2ExCoop.RM2C
                 "RGBA" => BinPNG.RGBA, // 16 or 32
                 "CI" => BinPNG.CI,   // 4 or 8
                 "IA" => BinPNG.IA,   // 4 or 8 or 16
-                //"I" => BinPNG.I,     // 4 or 8
+                "I" => BinPNG.I,     // 4 or 8
                 _ => throw new KeyNotFoundException("Texture is not of supported image type")
             };
 

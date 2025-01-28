@@ -11,6 +11,9 @@ namespace RM2ExCoop.RM2C
         public static MagickImage IA8(int width, int height, BitStream bin) => IA(width, height, 8, bin);
         public static MagickImage IA16(int width, int height, BitStream bin) => IA(width, height, 16, bin);
 
+        public static MagickImage I4(int width, int height, BitStream bin) => IA(width, height, 4, bin);
+        public static MagickImage I8(int width, int height, BitStream bin) => IA(width, height, 8, bin);
+
         public static MagickImage RGBA(int width, int height, uint depth, BitStream bin, (byte[], string)? _ = null)
         {
             byte[] channelSizes = depth switch
@@ -31,6 +34,18 @@ namespace RM2ExCoop.RM2C
                 8 => new byte[] { 4, 4 },
                 16 => new byte[] { 8, 8 },
                 _ => throw new NotSupportedException($"IA{depth} is unsupported")
+            };
+
+            return Generic(width, height, bin, channelSizes);
+        }
+        public static MagickImage I(int width, int height, uint depth, BitStream bin, (byte[], string)? _ = null)
+        {
+            byte[] channelSizes = depth switch
+            {
+                4 => new byte[] { 3, 1 },
+                8 => new byte[] { 4, 4 },
+                16 => new byte[] { 8, 8 },
+                _ => throw new NotSupportedException($"I{depth} is unsupported")
             };
 
             return Generic(width, height, bin, channelSizes);
