@@ -287,7 +287,7 @@ namespace RM2ExCoop.RM2C
             {
                 string fmtBhv = bhv.ToString("X8");
                 string bhvName = RomMap.GetLabel(fmtBhv);
-                if (bhvName.Contains("0x" + fmtBhv))
+                if (bhvName.Contains("0x"))
                 {
                     bhvName = " Bhv_Custom_0x" + fmtBhv;
                     // Log.UnkObject(script.Currlevel,script.CurrArea,bhv)

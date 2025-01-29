@@ -55,42 +55,48 @@ namespace RM2ExCoop.C2ExCoop
             string savedTextureName = "";
 
             Logger.Info("Processing all actor files");
-
-            foreach (DirectoryInfo actor in actorsDir.GetDirectories())
+            string actpath = Path.Join(modDir, "actors");
+            if (Directory.Exists(actpath))
             {
-                Logger.Info("Processing actor " + actor.Name);
 
-                FileInfo[] files = actor.GetFiles();
-
-                for (int i = 0; i < files.Length; ++i)
+                foreach (DirectoryInfo actor in actorsDir.GetDirectories())
                 {
-                    FileInfo file = files[i];
+                    Logger.Info("Processing actor " + actor.Name);
 
-                    foreach (var (src, dest) in filesToChecka)
+                    FileInfo[] files = actor.GetFiles();
+
+                    for (int i = 0; i < files.Length; ++i)
                     {
-                        if (file.Name == src)
+                        FileInfo file = files[i];
+
+                        foreach (var (src, dest) in filesToChecka)
                         {
-                            string destPath = file.FullName.Replace(src, dest);
-                            toRename.Add((file.FullName, destPath));
-                            toDelete.Add(destPath);
-                        }
-                        if (file.Name == "AtextureNew.inc.c")
-                        {
-                            FileStream fs = file.Open(FileMode.OpenOrCreate, FileAccess.Read , FileShare.Read); 
-                            StreamReader sr = new StreamReader(fs);
-                            string fileContent = sr.ReadToEnd();
-                            savedTextureName = fileContent;
-                            //new FileObject(file.FullName).Replace(new Regex("#include \"custom.model.inc.h\""), "#include \"geo_header.h\"").ApplyAndSave();
-                            toDelete.Add(file.FullName);
-                            sr.Close();
-                            fs.Close();
-                        }
-                        if (file.Name == "custom.model.inc.c")
-                        {
-                            new FileObject(file.FullName).Replace(new Regex("#include \"custom.model.inc.h\""), savedTextureName).ApplyAndSave();
+                            if (file.Name == src)
+                            {
+                                string destPath = file.FullName.Replace(src, dest);
+                                toRename.Add((file.FullName, destPath));
+                                toDelete.Add(destPath);
+                            }
+                            if (file.Name == "AtextureNew.inc.c")
+                            {
+                                FileStream fs = file.Open(FileMode.OpenOrCreate, FileAccess.Read, FileShare.Read);
+                                StreamReader sr = new StreamReader(fs);
+                                string fileContent = sr.ReadToEnd();
+                                savedTextureName = fileContent;
+                                //new FileObject(file.FullName).Replace(new Regex("#include \"custom.model.inc.h\""), "#include \"geo_header.h\"").ApplyAndSave();
+                                toDelete.Add(file.FullName);
+                                sr.Close();
+                                fs.Close();
+                            }
+                            if (file.Name == "custom.model.inc.c")
+                            {
+                                new FileObject(file.FullName).Replace(new Regex("#include \"custom.model.inc.h\""), savedTextureName).ApplyAndSave();
+                            }
                         }
                     }
                 }
+            } else {
+                Logger.Warn("There was no actors folder generated. Skipping it.");
             }
 
             Logger.Info("Processing all level files");
