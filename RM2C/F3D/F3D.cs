@@ -337,7 +337,7 @@ namespace RM2ExCoop.RM2C
             using StreamWriter modelFile = new(File.Open(Path.Join(dir, "custom.model.inc.c"), FileMode.Create));
             modelFile.WriteLine("#include \"custom.model.inc.h\"");
 
-            using StreamWriter texturesFile = new(File.Open(Path.Join(levelDir, "textureNew.inc.c"), FileMode.Append));
+            using StreamWriter texturesFile = new(File.Open(Path.Join(levelDir, "AtextureNew.inc.c"), FileMode.Append));
 
             // For editor levels, do not use on actors or RM unless explicitly told flagged
             // depends on all data being in the same display list.

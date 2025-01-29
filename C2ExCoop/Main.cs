@@ -32,6 +32,7 @@ namespace RM2ExCoop.C2ExCoop
             }
 
             DirectoryInfo levelsDir = new(Path.Join(modDir, "levels"));
+            DirectoryInfo actorsDir = new(Path.Join(modDir, "actors"));
             List<(string, string)> toRename = new();
             List<string> toDelete = new();
             List<(string, string)> movTexs = new();
@@ -43,6 +44,54 @@ namespace RM2ExCoop.C2ExCoop
                 ("custom.leveldata.c", "leveldata.c"),
                 ("textureNew.inc.c", "texture.inc.c")
             };
+
+            (string, string)[] filesToChecka = new (string, string)[]
+            {
+                ("custom.model.inc.c", "model.inc.c"),
+                ("custom.geo.inc.c", "geo.inc.c"),
+                ("custom.model.inc.h", "geo_header.h"),
+            };
+
+            string savedTextureName = "";
+
+            Logger.Info("Processing all actor files");
+
+            foreach (DirectoryInfo actor in actorsDir.GetDirectories())
+            {
+                Logger.Info("Processing actor " + actor.Name);
+
+                FileInfo[] files = actor.GetFiles();
+
+                for (int i = 0; i < files.Length; ++i)
+                {
+                    FileInfo file = files[i];
+
+                    foreach (var (src, dest) in filesToChecka)
+                    {
+                        if (file.Name == src)
+                        {
+                            string destPath = file.FullName.Replace(src, dest);
+                            toRename.Add((file.FullName, destPath));
+                            toDelete.Add(destPath);
+                        }
+                        if (file.Name == "AtextureNew.inc.c")
+                        {
+                            FileStream fs = file.Open(FileMode.OpenOrCreate, FileAccess.Read , FileShare.Read); 
+                            StreamReader sr = new StreamReader(fs);
+                            string fileContent = sr.ReadToEnd();
+                            savedTextureName = fileContent;
+                            //new FileObject(file.FullName).Replace(new Regex("#include \"custom.model.inc.h\""), "#include \"geo_header.h\"").ApplyAndSave();
+                            toDelete.Add(file.FullName);
+                            sr.Close();
+                            fs.Close();
+                        }
+                        if (file.Name == "custom.model.inc.c")
+                        {
+                            new FileObject(file.FullName).Replace(new Regex("#include \"custom.model.inc.h\""), savedTextureName).ApplyAndSave();
+                        }
+                    }
+                }
+            }
 
             Logger.Info("Processing all level files");
 
