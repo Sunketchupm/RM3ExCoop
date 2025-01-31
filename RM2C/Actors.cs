@@ -91,20 +91,27 @@ namespace RM2ExCoop.RM2C
             foreach (var (model, _) in models)
             {
                 // Edit model to have ROM address. MOP seg 0 is mapped with 0x5F0000 = 0x7D0000
-                if (model.Type == "geo")
+                try
                 {
-                    if (GeoActor.Parse(rom, model) is GeoActor geo)
+                    if (model.Type == "geo")
                     {
-                        geos.Add(geo);
-                        dls.Add(geo.DLs);
-                        ids.Add(geo.IdPrefix);
+                        if (GeoActor.Parse(rom, model) is GeoActor geo)
+                        {
+                            geos.Add(geo);
+                            dls.Add(geo.DLs);
+                            ids.Add(geo.IdPrefix);
+                        }
+                    }
+                    else
+                    // Load via F3d
+                    {
+                        dls.Add(new List<(uint, uint)>() { (model.RomAddr, model.SegAddr) });
+                        ids.Add($"{model.Label}_");
                     }
                 }
-                // Load via F3d
-                else
+                catch
                 {
-                    dls.Add(new List<(uint, uint)>() { (model.RomAddr, model.SegAddr) });
-                    ids.Add($"{model.Label}_");
+                    Logger.Info($"{folder} is broken, will not export");
                 }
             }
 
@@ -112,8 +119,15 @@ namespace RM2ExCoop.RM2C
             if (geos.Count > 0)
                 GeoActor.WriteAll(geos, dir, geoFile);
 
-            WriteModels(rom, dls, models[0].Item1.Script, folder, ids, dir, models[0].Item2);
-            Logger.Info($"{folder} exported");
+            try
+            {
+                WriteModels(rom, dls, models[0].Item1.Script, folder, ids, dir, models[0].Item2);
+                Logger.Info($"{folder} exported");
+            }
+            catch
+            {
+
+            }
         }
 
         public static void WriteModels(Rom rom, List<List<(uint, uint)>> dls, Script script, string folder, List<string> ids, string dir, string group)
