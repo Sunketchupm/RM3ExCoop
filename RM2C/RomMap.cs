@@ -18,7 +18,7 @@ namespace RM2ExCoop.RM2C
 #pragma warning disable CS8604 // Possible null reference argument.
             using StreamReader mapReader = new(assembly.GetManifestResourceStream(resourceName));
 #pragma warning restore CS8604 // Possible null reference argument.
-            Map = mapReader.ReadToEnd().Split('\n');
+            Map = mapReader.ReadToEnd().Replace("\r", "").Split('\n');
         }
 
         public static string GetLabel(string addr)

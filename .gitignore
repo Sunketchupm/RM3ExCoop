@@ -366,3 +366,7 @@ FodyWeavers.xsd
 mod/
 output/
 .vscode/
+
+# Don't commit roms
+*.z64
+*.bps
